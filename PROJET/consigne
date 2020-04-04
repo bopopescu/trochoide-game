@@ -1,0 +1,47 @@
+Dans sa définition la plus générale, une "trochoïde" est une courbe 2D qui représente le 
+mouvement d'un point situé sur un cercle qui roule (sans glissement) le long d'une autre 
+forme géométrique. Parmi ces courbes, il existe deux familles particulièrement intéressantes 
+obtenues lorsque le cercle roule à l'extérieur ou à l'intérieur d'un autre cercle (on parle 
+respectivement d'épitrochoïdes et d'hypotrochoïdes). Ces deux familles de courbes ont été 
+popularisées pour le grand public par le jeu Spirograph inventé au milieu des années 1960.
+
+La page Wikipedia consacrée au Spirograph fournit quelques informations sur les équations 
+paramétriques permettant de décrire la forme d'une trochoïde, mais le plus simple est d'aller 
+directement sur les pages Wikipedia concernant les épitrochoïdes et les hypotrochoïdes qui 
+présentent les différentes formes de ces équations paramétriques. De même, une application 
+proche de celle qui est demandée dans ce projet, peut être testée en ligne sur ArtByLogic. 
+Une version plus complexe, permettant de généraliser le principe avec un nombre arbitraire 
+de cercles, est accessible sur SeedCode
+
+Le but du projet est d'écrire un programme Spiro, basé sur une widget Canvas, permettant 
+la création interactive de telles figures géométriques. Le mode opératoire souhaité doit 
+permettre à l'utilisateur de choisir les paramètres de la trochoïde. Au minimum, il faut 
+
+_définir la taille et la position du cercle fixe, 
+_la taille et la position initiale du cercle mobile (qui peut être à l'intérieur ou à l'extérieur du cercle fixe) et enfin, la position 
+du point dont on veut tracer le mouvement. 
+
+Une fois les paramètres spécifiés, le programme  n'a plus qu'à évaluer les équations 
+paramétriques en faisant varier le paramètre t pour obtenir 
+un tracé de la courbe résultante. Pour augmenter la complexité des courbes, au lieu d'utiliser 
+des paramètres fixes, on peut fournir pour chaque paramètres une borne supérieure et une borne 
+inférieure et faire varier (avec une vitesse à définir) la valeur de chaque paramètre entre ces 
+deux bornes au cours du tracé.
+
+Le choix des options de visualisation, des commandes d'interaction, ainsi que de l'organisation 
+de la fenêtre graphique est laissé totalement libre. Néanmoins, on peut énumérer un certain 
+nombre de fonctionnalités qu'il serait souhaitable d'y voir figurer :
+Définir la couleur du tracé, et éventuellement son épaisseur ou son type (trait continu, 
+tirets, pointillés, etc)
+Permettre de tracer plusieurs trochoïdes en superposition, en faisant varier progressivement 
+le point de départ entre deux positions-limites définies par l'utilisateur
+Remplacer le cercle fixe par d'autres formes géométriques
+et bien sûr, n'hésitez pas à rajouter au programme toute fonctionnalité qui vous semblerait 
+intéressante...
+
+
+Exemples et Exercices conseillés pour servir de point de départ :
+Exemple C4A_random.py (pour l'utilisation des widgets Scale)
+Exemple C4B_random.py (pour l'utilisation des widgets Entry)
+Exemple C7A_canvas.py (pour l'utilisation de la widget Canvas et notamment la gestion 
+du tracé de courves dans un Canvas)
