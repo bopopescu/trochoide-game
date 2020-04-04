@@ -1,0 +1,56 @@
+﻿# -----------------------------------------------------------------------------
+# Sample INI file for testing the 'read_ini' parser
+# -----------------------------------------------------------------------------
+#
+# Parsing rules :
+#
+# - The content of an INI file is defined as a sequence of text lines
+# - Each line is an arbitrary sequence of Unicode characters ending with '\n'
+# - Five different types of lines are defined by the standard syntax:
+#   * Empty lines are meaningless and are simply ignored by the parser
+#   * Lines starting with '#' define comment lines and are also ignored
+#   * Lines starting with '[' are called "section lines"
+#   * Lines starting with ' ' are called "continuation lines"
+#   * Lines showing a "name = value" pattern are called "property lines"
+#   * Any other line pattern raises a syntax error
+# - A section line defines a section name enclosed in brackets '[...]'
+#   Note that the closing bracket ']' after section name is optional
+# - All sections are indexed by their names in a global dictionary 
+# - Each section creates its own dictionary to store subsequent properties
+# - A property line defines a name and a value, separated by character '='
+#   Note that whitespaces surrounding '=' are meaningless and are removed
+# - Each (name,value) pair is stored in the dictionary of current section
+# - If a property is defined before any section line, it is stored in a
+#   default section dictionary indexed by the empty string ''
+# - Continuation lines may be used to extend a value on several file lines 
+# - The string defined by a continuation line is simply concatenated to the
+#   previous value, after stripping the leading whitespaces. This means that
+#   line breaks '\n' have to be explicitely included to get multi-line strings
+# - In the default parser configuration, each value is converted to its correct
+#   data type by applying the 'convert' operator. This behavior can be changed
+#   by setting 'raw=True', so that each value is returned as a string
+#      
+# -----------------------------------------------------------------------------
+
+[Strings]
+black   = #000000
+white   = #FFFFFF
+empty   =
+
+[Numbers]
+pi      = 3.141592653589793
+size    = 100
+flag    = True
+
+[Others]
+lines   = 
+  first line, 
+  still the first line\n
+  second line
+items   = [1234, 12.34, 'abc', (1,2,3)]
+pairs   = {
+  (0,1) : 123,
+  (2,3) : 456,
+  (4,5) : 789,
+  }
+# -----------------------------------------------------------------------------

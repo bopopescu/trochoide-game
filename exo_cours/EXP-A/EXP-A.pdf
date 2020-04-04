@@ -1,0 +1,522 @@
+%PDF-1.0
+1 0 obj <<
+  /Title (EXP-A)
+  /Author ()
+  /Subject ()
+  /Keywords ()
+  /Creator ('txtopdf')
+>> endobj
+2 0 obj <<
+  /Type /Catalog /Pages 5 0 R
+>> endobj
+3 0 obj <<
+  /Type /Font /Subtype /Type1 /Encoding /WinAnsiEncoding /BaseFont /Courier-Bold
+>> endobj
+4 0 obj <<
+  /Font << /F 3 0 R /ProcSet [ /PDF /Text ] >>
+>> endobj
+6 0 obj <<
+  /Type /Page /Parent 5 0 R /Resources 4 0 R /Contents 7 0 R
+>> endobj
+7 0 obj << /Length 8 0 R >> stream
+q BT /F 8.43 Tf 12.18 586.726 Td 8.93 TL
+q ET 0.7 g 8 568.966 413 14.288 re f 0 g
+BT /F 10.716 Tf 12.18 582.361 Td
+  (                         A1A_euclid.py                         )' ET BT Q T* T*
+  (# ==============================================================================)'
+  ("""EUCLID : compute the Euclidian division of two integer numbers""")'
+  (# ==============================================================================)'
+  (__author__  = "Christophe Schlick")'
+  (__version__ = "1.0" # without user input)'
+  (__date__    = "2018-01-15")'
+  (# ==============================================================================)'
+  (a, b = 34, 12)'
+  (print\(a, '=', b, '*', a//b, '+', a%b\)          # solution A)'
+  (print\("%s = %s * %s + %s" % \(a, b, a//b, a%b\)\) # solution B \(much more flexible\))'
+  (print\(f"{a} = {b} * {a//b} + {a%b}"\)           # solution C \(needs Python 3.6.x\))'
+  (# ==============================================================================)'
+q ET 0.7 g 8 443.946 413 14.288 re f 0 g
+BT /F 10.716 Tf 12.18 457.341 Td
+  (                         A1B_euclid.py                         )' ET BT Q T* T*
+  (# ==============================================================================)'
+  ("""EUCLID : compute the Euclidian division of two integer numbers""")'
+  (# ==============================================================================)'
+  (__author__  = "Christophe Schlick")'
+  (__version__ = "2.0" # add interactive user input)'
+  (__date__    = "2018-01-15")'
+  (# ==============================================================================)'
+  (a = input\("<> Value of numerator : "\))'
+  (b = input\("<> Value of denominator : "\))'
+  (print\(type\(a\), type\(b\)\) # 'a' and 'b' are strings)'
+  (#a, b = int\(a\), int\(b\))'
+  (print\(type\(a\), type\(b\)\) # 'a' and 'b' have been converted to integers)'
+  (print\(f"{a} = {b} * {a//b} + {a%b}"\))'
+  (# ==============================================================================)'
+q ET 0.7 g 8 301.066 413 14.288 re f 0 g
+BT /F 10.716 Tf 12.18 314.461 Td
+  (                         A1C_euclid.py                         )' ET BT Q T* T*
+  (# ==============================================================================)'
+  ("""EUCLID : compute the Euclidian division of two integer numbers""")'
+  (# ==============================================================================)'
+  (__author__  = "Christophe Schlick")'
+  (__version__ = "3.0" # add command line for user input)'
+  (__date__    = "2018-01-15")'
+  (# ==============================================================================)'
+  (command = input\("<> Enter numerator,denominator : "\))'
+  (a, b = command.split\(','\) # split command line at the ',' character)'
+  (a, b = int\(a\), int\(b\))'
+  (print\(f"{a} = {b} * {a//b} + {a%b}"\))'
+  (# ==============================================================================)'
+q ET 0.7 g 8 176.046 413 14.288 re f 0 g
+BT /F 10.716 Tf 12.18 189.441 Td
+  (                         A1D_euclid.py                         )' ET BT Q T* T*
+  (# ==============================================================================)'
+  ("""EUCLID : compute the Euclidian division of two integer numbers""")'
+  (# ==============================================================================)'
+  (__author__  = "Christophe Schlick")'
+  (__version__ = "4.0" # add interaction loop)'
+  (__date__    = "2018-01-15")'
+  (# ==============================================================================)'
+  (print\("Note: enter empty line to stop interaction loop\\n"\))'
+  (while True:)'
+  (  command = input\("<> Enter numerator,denominator : "\))'
+  (  if command == '': break # break loop when user enter an empty line)'
+  (  a, b = command.split\(','\))'
+  (  a, b = int\(a\), int\(b\))'
+  (  print\(f"{a} = {b} * {a//b} + {a%b}"\))'
+  (print\("See you later..."\))'
+  (# ==============================================================================)'
+ET BT /F 8.43 Tf 425.18 586.726 Td 8.93 TL
+q ET 0.7 g 421 568.966 413 14.288 re f 0 g
+BT /F 10.716 Tf 425.18 582.361 Td
+  (                         A1E_euclid.py                         )' ET BT Q T* T*
+  (# ==============================================================================)'
+  ("""EUCLID : compute the Euclidian division of two integer numbers""")'
+  (# ==============================================================================)'
+  (__author__  = "Christophe Schlick")'
+  (__version__ = "5.0" # split code into kernel and interface functions)'
+  (__date__    = "2018-01-15")'
+  (# ==============================================================================)'
+  (def euclid\(x,y\):)'
+  (  """return Euclidian decomposition: a = b*q + r""")'
+  (  return f"{x} = {y} * {x//y} + {x%y}")'
+  (# ------------------------------------------------------------------------------)'
+  (def parser\(command\):)'
+  (  """parse 'command' as two integers 'a,b' and return Euclidian decomposition""")'
+  (  a, b = command.split\(','\))'
+  (  a, b = int\(a\), int\(b\))'
+  (  return euclid\(a, b\))'
+  (# ------------------------------------------------------------------------------)'
+  (def loop\(\):)'
+  (  """interaction loop for the "euclid" module""")'
+  (  print\("Note: enter empty line to stop interaction loop\\n"\))'
+  (  while True:)'
+  (    command = input\("<> Enter numerator,denominator : "\))'
+  (    if command == '': break)'
+  (    print\(parser\(command\)\))'
+  (  print\("See you later..."\))'
+  (# ==============================================================================)'
+  (if __name__ == '__main__': # test whether this code is used as module or program)'
+  (  loop\(\))'
+  (# ==============================================================================)'
+q ET 0.7 g 421 292.136 413 14.288 re f 0 g
+BT /F 10.716 Tf 425.18 305.531 Td
+  (                         A1F_euclid.py                         )' ET BT Q T* T*
+  (# ==============================================================================)'
+  ("""EUCLID : compute the Euclidian division of two integer numbers""")'
+  (# ==============================================================================)'
+  (__author__  = "Christophe Schlick")'
+  (__version__ = "6.0" # use 'userloop/convert/inspect' from the 'ezCLI' module)'
+  (__date__    = "2018-01-15")'
+  (__usage__   = """)'
+  (User input: <numerator>,<denominator> \(where numerator:int, denominator:int > 0\))'
+  (App output: Euclidian division: numerator = denominator*q + r""")'
+  (# ==============================================================================)'
+  (from ezCLI import *)'
+  (# ------------------------------------------------------------------------------)'
+  (def euclid\(a,b\):)'
+  (  """return Euclidian decomposition: a = b*q + r""")'
+  (  return f"{a} = {b} * {a//b} + {a%b}")'
+  (# ------------------------------------------------------------------------------)'
+  (def parser\(command\):)'
+  (  """parse 'command' as two integers 'a,b' and return Euclidian decomposition""")'
+  (  a, b = convert\(command\); #inspect\(\))'
+  (  return euclid\(a, b\))'
+  (# ==============================================================================)'
+  (if __name__ == '__main__':)'
+  (  userloop\(parser, "Enter numerator,denominator"\) # user interaction loop)'
+  (# ==============================================================================)'
+q ET 0.7 g 421 59.956 413 14.288 re f 0 g
+BT /F 10.716 Tf 425.18 73.351 Td
+  (                         A1G_euclid.py                         )' ET BT Q T* T*
+  (# ==============================================================================)'
+  ("""EUCLID : compute the Euclidian division of two integer numbers""")'
+  (# ==============================================================================)'
+  (__author__  = "Christophe Schlick")'
+ET 8 20 413 567 re 421 20 413 567 re s
+Q BT /F 12 Tf 14.2 8 Td
+  (EXP-A                                                 - 1 -                                      2018/05/05 11:00)'
+ET endstream endobj
+8 0 obj 8172 endobj
+9 0 obj <<
+  /Type /Page /Parent 5 0 R /Resources 4 0 R /Contents 10 0 R
+>> endobj
+10 0 obj << /Length 11 0 R >> stream
+q BT /F 8.43 Tf 12.18 586.726 Td 8.93 TL
+  (__version__ = "7.0" # add a few 'assert' statements to control user input)'
+  (__date__    = "2018-01-15")'
+  (__usage__   = """)'
+  (User input: <numerator>,<denominator> \(where numerator:int, denominator:int > 0\))'
+  (App output: Euclidian division: numerator = denominator*q + r""")'
+  (# ==============================================================================)'
+  (from ezCLI import *)'
+  (# ------------------------------------------------------------------------------)'
+  (def euclid\(a,b\):)'
+  (  """return Euclidian decomposition: a = b*q + r""")'
+  (  return f"{a} = {b} * {a//b} + {a%b}")'
+  (# ------------------------------------------------------------------------------)'
+  (def parser\(command\):)'
+  (  """parse 'command' as two integers 'a,b' and return Euclidian decomposition""")'
+  (  command = convert\(command\); #inspect\(\))'
+  (  assert type\(command\) is tuple and len\(command\) == 2, "invalid syntax")'
+  (  a, b = command; #inspect\(\))'
+  (  assert type\(a\) is int, "numerator must be an integer")'
+  (  assert type\(b\) is int and b > 0, "denominator must be a positive integer")'
+  (  return euclid\(a,b\))'
+  (# ==============================================================================)'
+  (if __name__ == '__main__':)'
+  (  userloop\(parser, "Enter numerator,denominator"\) # user interaction loop)'
+  (# ==============================================================================)'
+q ET 0.7 g 8 354.646 413 14.288 re f 0 g
+BT /F 10.716 Tf 12.18 368.041 Td
+  (                         A2A_squares.py                        )' ET BT Q T* T*
+  (# ==============================================================================)'
+  ("""SQUARES : print the sequence of square numbers from 1*1 to n*n""")'
+  (# ==============================================================================)'
+  (__author__  = "Christophe Schlick")'
+  (__version__ = "1.0" # use 'while' loop to generate string)'
+  (__date__    = "2018-01-15")'
+  (__usage__   = """)'
+  (User input: <n> \(where n:int > 0\))'
+  (App output: sequence of square numbers from 1*1 to n*n""")'
+  (# ==============================================================================)'
+  (from ezCLI import *)'
+  (# ------------------------------------------------------------------------------)'
+  (def square\(n\):)'
+  (  """return the square of 'n'""")'
+  (  return n*n)'
+  (# ------------------------------------------------------------------------------)'
+  (def squares\(n\):)'
+  (  """return a string containing the 'n' first square numbers""")'
+  (  p, lines = 1, '')'
+  (  while \(p <= n\):)'
+  (    lines += f"{p} * {p} = {square\(p\)}\\n")'
+  (    p += 1; #inspect\(\))'
+  (  return lines.strip\(\) # remove trailing newline character)'
+  (# ------------------------------------------------------------------------------)'
+  (def parser\(command\):)'
+  (  """parse 'command' as integer 'n' before calling 'squares\(n\)'""")'
+  (  n = convert\(command\); #inspect\(\))'
+  (  assert type\(n\) is int and n > 0, "<n> must be a strictly positive integer")'
+  (  return squares\(n\))'
+  (# ==============================================================================)'
+  (if __name__ == '__main__':)'
+  (  userloop\(parser, "Enter value for <n>"\))'
+  (# ==============================================================================)'
+q ET 0.7 g 8 42.096 413 14.288 re f 0 g
+BT /F 10.716 Tf 12.18 55.491 Td
+  (                         A2B_squares.py                        )' ET BT Q T* T*
+  (# ==============================================================================)'
+  ("""SQUARES : print the sequence of square numbers from 1*1 to n*n""")'
+ET BT /F 8.43 Tf 425.18 586.726 Td 8.93 TL
+  (# ==============================================================================)'
+  (__author__  = "Christophe Schlick")'
+  (__version__ = "2.0" # use 'for' loop to generate string)'
+  (__date__    = "2018-01-15")'
+  (__usage__   = """)'
+  (User input: <n> \(where n:int > 0\))'
+  (App output: sequence of square numbers from 1*1 to n*n""")'
+  (# ==============================================================================)'
+  (from ezCLI import *)'
+  (# ------------------------------------------------------------------------------)'
+  (def square\(n\):)'
+  (  """return the square of 'n'""")'
+  (  return n*n)'
+  (# ------------------------------------------------------------------------------)'
+  (def squares\(n\):)'
+  (  """return a string containing the 'n' first square numbers""")'
+  (  lines = '')'
+  (  for p in range\(1, n+1\):)'
+  (    lines += f"{p} * {p} = {square\(p\)}\\n"; #inspect\(\))'
+  (  return lines.strip\(\) # remove trailing newline character)'
+  (# ------------------------------------------------------------------------------)'
+  (def parser\(command\):)'
+  (  """parse 'command' as integer 'n' before calling 'squares\(n\)'""")'
+  (  n = convert\(command\); #inspect\(\))'
+  (  assert type\(n\) is int and n > 0, "<n> must be a strictly positive integer")'
+  (  return squares\(n\))'
+  (# ==============================================================================)'
+  (if __name__ == '__main__':)'
+  (  userloop\(parser, "Enter value for <n>"\))'
+  (# ==============================================================================)'
+q ET 0.7 g 421 301.066 413 14.288 re f 0 g
+BT /F 10.716 Tf 425.18 314.461 Td
+  (                         A2C_squares.py                        )' ET BT Q T* T*
+  (# ==============================================================================)'
+  ("""SQUARES : print the sequence of square numbers from 1*1 to n*n""")'
+  (# ==============================================================================)'
+  (__author__  = "Christophe Schlick")'
+  (__version__ = "3.0" # use list comprehension then join into multi-line string)'
+  (__date__    = "2018-01-15")'
+  (__usage__   = """)'
+  (User input: <n> \(where n:int > 0\))'
+  (App output: sequence of square numbers from 1*1 to n*n""")'
+  (# ==============================================================================)'
+  (from ezCLI import *)'
+  (# ------------------------------------------------------------------------------)'
+  (def square\(n\):)'
+  (  """return the square of 'n'""")'
+  (  return n*n)'
+  (# ------------------------------------------------------------------------------)'
+  (def squares\(n\):)'
+  (  """return a string containing the 'n' first square numbers""")'
+  (  lines = [f"{p} * {p} = {square\(p\)}" for p in range\(1,n+1\)]; #inspect\(\))'
+  (  return '\\n'.join\(lines\) # join all lines into a single multi-line string)'
+  (# ------------------------------------------------------------------------------)'
+  (def parser\(command\):)'
+  (  """parse 'command' as integer 'n' before calling 'squares\(n\)'""")'
+  (  n = convert\(command\); #inspect\(\))'
+  (  assert type\(n\) is int and n > 0, "<n> must be a strictly positive integer")'
+  (  return squares\(n\))'
+  (# ==============================================================================)'
+  (if __name__ == '__main__':)'
+  (  userloop\(parser, "Enter value for <n>"\))'
+  (# ==============================================================================)'
+ET 8 20 413 567 re 421 20 413 567 re s
+Q BT /F 12 Tf 14.2 8 Td
+  (EXP-A                                                 - 2 -                                      2018/05/05 11:00)'
+ET endstream endobj
+11 0 obj 7545 endobj
+12 0 obj <<
+  /Type /Page /Parent 5 0 R /Resources 4 0 R /Contents 13 0 R
+>> endobj
+13 0 obj << /Length 14 0 R >> stream
+q BT /F 8.43 Tf 12.18 586.726 Td 8.93 TL
+q ET 0.7 g 8 568.966 413 14.288 re f 0 g
+BT /F 10.716 Tf 12.18 582.361 Td
+  (                        A3A_multable.py                        )' ET BT Q T* T*
+  (# ==============================================================================)'
+  ("""MULTABLE : print the multiplication table from 1*1 to n*n""")'
+  (# ==============================================================================)'
+  (__author__  = "Christophe Schlick")'
+  (__version__ = "1.0" # use two embedded 'for' loops to generate table)'
+  (__date__    = "2018-01-15")'
+  (__usage__   = """)'
+  (User input: <n> \(where n:int > 0\))'
+  (App output: multiplication table from 1*1 to n*n""")'
+  (# ==============================================================================)'
+  (from ezCLI import *)'
+  (# ------------------------------------------------------------------------------)'
+  (def multable\(n\):)'
+  (  """return a string containing the multiplication table from 1*1 to n*n""")'
+  (  lines = '')'
+  (  for p in range\(1, n+1\):)'
+  (    for q in range\(1, n+1\): )'
+  (      lines += f"{p*q:3} "; #inspect\(\) # string length is forced to 3 chars)'
+  (    lines += '\\n')'
+  (  return lines.strip\('\\n'\) # remove trailing newline character)'
+  (# ------------------------------------------------------------------------------)'
+  (def parser\(command\):)'
+  (  """parse 'command' as integer 'n' before calling 'multable\(n\)'""")'
+  (  n = convert\(command\); #inspect\(\))'
+  (  assert type\(n\) is int and n > 0, "<n> must be a strictly positive integer")'
+  (  return multable\(n\))'
+  (# ==============================================================================)'
+  (if __name__ == '__main__':)'
+  (  userloop\(parser, "Enter value for <n>"\))'
+  (# ==============================================================================)'
+q ET 0.7 g 8 283.206 413 14.288 re f 0 g
+BT /F 10.716 Tf 12.18 296.601 Td
+  (                        A3B_multable.py                        )' ET BT Q T* T*
+  (# ==============================================================================)'
+  ("""MULTABLE : print the multiplication table from 1*1 to n*n""")'
+  (# ==============================================================================)'
+  (__author__  = "Christophe Schlick")'
+  (__version__ = "2.0" # use embedded list comprehension to generate table)'
+  (__date__    = "2018-01-15")'
+  (__usage__   = """)'
+  (User input: <n> \(where n:int > 0\))'
+  (App output: multiplication table from 1*1 to n*n""")'
+  (# ==============================================================================)'
+  (from ezCLI import *)'
+  (# ------------------------------------------------------------------------------)'
+  (def multable\(n\):)'
+  (  """return a string containing the multiplication table from 1*1 to n*n""")'
+  (  # create 'table' as a matrix of 3-character strings)'
+  (  table = [[f"{p*q:3}" for q in range\(1, n+1\)] for p in range\(1, n+1\)])'
+  (  # join each line from 'table' into a single string)'
+  (  lines = [' '.join\(line\) for line in table]; #inspect\(\))'
+  (  return '\\n'.join\(lines\) # join all lines into a multi-line string)'
+  (# ------------------------------------------------------------------------------)'
+  (def parser\(command\):)'
+  (  """parse 'command' as integer 'n' before calling 'multable\(n\)'""")'
+  (  n = convert\(command\); #inspect\(\))'
+  (  assert type\(n\) is int and n > 0, "<n> must be a strictly positive integer")'
+  (  return multable\(n\))'
+  (# ==============================================================================)'
+  (if __name__ == '__main__':)'
+  (  userloop\(parser, "Enter value for <n>"\))'
+  (# ==============================================================================)'
+ET BT /F 8.43 Tf 425.18 586.726 Td 8.93 TL
+q ET 0.7 g 421 568.966 413 14.288 re f 0 g
+BT /F 10.716 Tf 425.18 582.361 Td
+  (                        A3C_multable.py                        )' ET BT Q T* T*
+  (# ==============================================================================)'
+  ("""MULTABLE : print the multiplication table from 1*1 to n*n""")'
+  (# ==============================================================================)'
+  (__author__  = "Christophe Schlick")'
+  (__version__ = "3.0" # use 'grid' from the 'ezCLI' module)'
+  (__date__    = "2018-01-15")'
+  (__usage__   = """)'
+  (User input: <n> \(where n:int > 0\))'
+  (App output: multiplication table from 1*1 to n*n""")'
+  (# ==============================================================================)'
+  (from ezCLI import *)'
+  (# ------------------------------------------------------------------------------)'
+  (def multable\(n\):)'
+  (  """return a string containing the multiplication table from 1*1 to n*n""")'
+  (  # create 'table' as a matrix of integers)'
+  (  table = [[p*q for q in range\(1, n+1\)] for p in range\(1, n+1\)]; #inspect\(\))'
+  (  return grid\(table\) # use the 'grid' function to format 'table' as a grid)'
+  (# ------------------------------------------------------------------------------)'
+  (def parser\(command\):)'
+  (  """parse 'command' as integer 'n' before calling 'multable\(n\)'""")'
+  (  n = convert\(command\); #inspect\(\))'
+  (  assert type\(n\) is int and n > 0, "<n> must be a strictly positive integer")'
+  (  return multable\(n\))'
+  (# ==============================================================================)'
+  (if __name__ == '__main__':)'
+  (  userloop\(parser, "Enter value for <n>"\))'
+  (# ==============================================================================)'
+q ET 0.7 g 421 309.996 413 14.288 re f 0 g
+BT /F 10.716 Tf 425.18 323.391 Td
+  (                        A3D_multable.py                        )' ET BT Q T* T*
+  (# ==============================================================================)'
+  ("""MULTABLE : print a \(start,stop,step\) slice of the multiplication table""")'
+  (# ==============================================================================)'
+  (__author__  = "Christophe Schlick")'
+  (__version__ = "4.0" # include \(start, stop, step\) parameters)'
+  (__date__    = "2018-01-15")'
+  (__usage__   = """)'
+  (User input: <start,stop,step>)'
+  (            - start:int = start value for the multiplication table)'
+  (            - stop:int = stop value for the multiplication table)'
+  (            - step:int = step value for the multiplication table)'
+  (App output: multiplication table from 'start*start' to 'stop*stop' """)'
+  (# ==============================================================================)'
+  (from ezCLI import *)'
+  (# ------------------------------------------------------------------------------)'
+  (def multable\(start, stop, step\):)'
+  (  """return a string containing a \(start,stop,step\) slice of multable""")'
+  (  # create a list of integer values for the first row and first col)'
+  (  values = [] if start == 1 else [1] # force the list to start with 1)'
+  (  values += list\(range\(start, stop, step\)\); #inspect\(\))'
+  (  # create 'table' as a matrix of integers)'
+  (  table = [[p*q for q in values] for p in values]; #inspect\(\))'
+  (  return grid\(table\) # use the 'grid' function to format 'table' as a grid)'
+  (# ------------------------------------------------------------------------------)'
+  (def parser\(command\):)'
+  (  """parse 'command' as \(start,stop,step\) values before calling 'multable'""")'
+  (  start, stop, step = convert\(command\); #inspect\(\))'
+  (  assert type\(start\) is int and start > 0, f"{start!r} : invalid 'start' value")'
+  (  assert type\(stop\) is int and stop >= start, f"{stop!r} : invalid 'stop' value")'
+  (  assert type\(step\) is int and step > 0, f"{step!r} : invalid 'step' value")'
+  (  return multable\(start, stop, step\))'
+  (# ==============================================================================)'
+ET 8 20 413 567 re 421 20 413 567 re s
+Q BT /F 12 Tf 14.2 8 Td
+  (EXP-A                                                 - 3 -                                      2018/05/05 11:00)'
+ET endstream endobj
+14 0 obj 8192 endobj
+15 0 obj <<
+  /Type /Page /Parent 5 0 R /Resources 4 0 R /Contents 16 0 R
+>> endobj
+16 0 obj << /Length 17 0 R >> stream
+q BT /F 8.43 Tf 12.18 586.726 Td 8.93 TL
+  (if __name__ == '__main__':)'
+  (  userloop\(parser, "Enter <start,stop,step>"\))'
+  (# ==============================================================================)'
+q ET 0.7 g 8 542.176 413 14.288 re f 0 g
+BT /F 10.716 Tf 12.18 555.571 Td
+  (                        A3E_multable.py                        )' ET BT Q T* T*
+  (# ==============================================================================)'
+  ("""MULTABLE : print a \(start,stop,step\) slice of the multiplication table""")'
+  (# ==============================================================================)'
+  (__author__  = "Christophe Schlick")'
+  (__version__ = "5.0" # use 'parse' function with default parameter values)'
+  (__date__    = "2018-01-15")'
+  (__usage__   = """)'
+  (User input: ['start='<start>] ['stop='<stop>] ['step='step])'
+  (            - start:int = start value for multable \(default = 1\))'
+  (            - stop:int = stop value bound for multable \(default = 10\))'
+  (            - step:int = step value for multable loop \(default = 1\))'
+  (App output: multiplication table from 'start*start' to 'stop*stop' """)'
+  (# ==============================================================================)'
+  (from ezCLI import *)'
+  (# ------------------------------------------------------------------------------)'
+  (def multable\(start, stop, step\):)'
+  (  """return a string containing a \(start,stop,step\) slice of multable""")'
+  (  # create a list of integer values for the first row and first col)'
+  (  values = [] if start == 1 else [1] # force the list to start with 1)'
+  (  values += list\(range\(start, stop, step\)\); #inspect\(\))'
+  (  # create 'table' as a matrix of integers)'
+  (  table = [[p*q for q in values] for p in values]; #inspect\(\))'
+  (  return grid\(table\) # use the 'grid' function to format 'table' as a grid)'
+  (# ------------------------------------------------------------------------------)'
+  (def parser\(command\):)'
+  (  """parse 'command' as \(start,stop,step\) values before calling 'multable'""")'
+  (  default = 'start=1 stop=10 step=1' # default values for all arguments)'
+  (  # parse 'command' and use default values for missing arguments)'
+  (  args = parse\(command, default\); #inspect\(\))'
+  (  # store all values from dictionary 'args' into variables )'
+  (  start, stop, step = \(args[n] for n in \('start','stop','step'\)\); #inspect\(\))'
+  (  assert type\(start\) is int and start > 0, f"{start!r} : invalid 'start' value")'
+  (  assert type\(stop\) is int and stop >= start, f"{stop!r} : invalid 'stop' value")'
+  (  assert type\(step\) is int and step > 0, f"{step!r} : invalid 'step' value")'
+  (  return multable\(start, stop, step\))'
+  (# ==============================================================================)'
+  (if __name__ == '__main__':)'
+  (  userloop\(parser\))'
+  (# ==============================================================================)'
+ET 8 20 413 567 re 421 20 413 567 re s
+Q BT /F 12 Tf 14.2 8 Td
+  (EXP-A                                                 - 4 -                                      2018/05/05 11:00)'
+ET endstream endobj
+17 0 obj 3211 endobj
+5 0 obj <<
+  /Type /Pages /Count 4 /MediaBox [ 0 0 842 595 ]
+  /Kids [ 6 0 R 9 0 R 12 0 R 15 0 R ]
+>> endobj
+xref 0 18
+  0000000000 65535 f
+  0000000010 00000 n
+  0000000120 00000 n
+  0000000174 00000 n
+  0000000279 00000 n
+  0000028128 00000 n
+  0000000350 00000 n
+  0000000435 00000 n
+  0000008662 00000 n
+  0000008683 00000 n
+  0000008769 00000 n
+  0000016371 00000 n
+  0000016393 00000 n
+  0000016480 00000 n
+  0000024729 00000 n
+  0000024751 00000 n
+  0000024838 00000 n
+  0000028106 00000 n
+trailer <<
+  /Info 1 0 R /Root 2 0 R
+>> startxref 28241
+%%EOF
