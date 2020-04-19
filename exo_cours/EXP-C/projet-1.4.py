@@ -52,6 +52,7 @@ def main():
     win.start2=Button(frameLeftBand_1, text=('Choose the form'),command=on_state)
     win.start2=Button(frameLeftBand_1, text=('carré','rond','fonction'))
     win.start3=Button(frameLeftBand_1, text=('Côté','Rayon','f(x)='))
+    Entry(frameLeftBand_1, width=10)
     Button(frameLeftBand_1, text="Couelur du trait ")
     Button(frameLeftBand_1, text="Epaisseur du trait ")
     Entry(frameLeftBand_1, width=10)
