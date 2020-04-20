@@ -7,4 +7,9 @@ et encore une autre
 
 et même ici tiens pour voir
 
+<<<<<<< Updated upstream
 la vie est belle quand on peut save sans commit!
+=======
+
+voici un début de phrase que je ne vais pas avoir le temps de finir car... mais quand même j'ai bien changé quelque chose!
+>>>>>>> Stashed changes
