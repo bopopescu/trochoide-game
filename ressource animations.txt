@@ -1,4 +1,5 @@
 "petit modif test pour git"
+"et maintenant une modif directement depuis gitHub pour essayer la commande git pull"
 
 Sur canvas
 http://python.physique.free.fr/animations.html
