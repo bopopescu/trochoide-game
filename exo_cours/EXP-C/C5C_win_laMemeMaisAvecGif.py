@@ -2,7 +2,7 @@
 """WIN : demo program for window manipulations"""
 # ==============================================================================
 __author__  = "Christophe Schlick"
-__version__ = "3.0" # toggle between two different master windows
+__version__ = "3.0" # toggle between two different main windows
 __date__    = "2018-01-15"
 # ==============================================================================
 from ezTK import *

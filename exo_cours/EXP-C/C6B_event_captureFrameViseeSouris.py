@@ -9,7 +9,7 @@ from ezTK import *
 # ------------------------------------------------------------------------------
 def on_click(widget, code, mods):
   """callback function for all 'mouse click' events"""
-  if widget.master != win.grid or widget.index is None:
+  if widget.main != win.grid or widget.index is None:
     return # nothing to do if the widget is not a grid cell 
   display('click', widget.index, code, mods)
   if 'Alt' in mods: reset() # reset grid state for any mouse click + 'ALT' key
@@ -19,7 +19,7 @@ def on_click(widget, code, mods):
 # ------------------------------------------------------------------------------
 def on_inout(widget, code, mods):
   """callback function for all 'mouse in' or 'mouse out' events"""
-  if widget.master != win.grid or widget.index is None:
+  if widget.main != win.grid or widget.index is None:
     return # nothing to do if the widget is not a grid cell
   display('inout', widget.index, code, mods)
   if code: widget['bg'] = '#FFF' # code = 1 for mouse in --> white background

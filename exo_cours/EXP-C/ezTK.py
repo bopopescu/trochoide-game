@@ -71,22 +71,22 @@ class _Multi(object):
 class Frame(tk.Frame):
   """..."""
   # ----------------------------------------------------------------------------
-  def __init__(self, master, flow=None, fold=None, takefocus=False, anchor=None,
+  def __init__(self, main, flow=None, fold=None, takefocus=False, anchor=None,
                grow=True, font=None, bg=None, fg=None, op=None, ip=None, **keys):
     self.frame, self.index, self._index, self.widgets = self, None, 0, []
-    self.fold, self.win = fold, master.win if master else self
-    # when no 'flow' is provided, use reversed flow directions from 'master'
-    self.flow = master.flow[::-1] if flow is None else flow
-    self.font = master.font if font is None else font
-    self.anchor = master.anchor if anchor is None else anchor
-    self.bg = master.bg if bg is None else bg
-    self.fg = master.fg if fg is None else fg 
-    self.op = master.op if op is None else op
-    self.ip = master.ip if ip is None else ip
+    self.fold, self.win = fold, main.win if main else self
+    # when no 'flow' is provided, use reversed flow directions from 'main'
+    self.flow = main.flow[::-1] if flow is None else flow
+    self.font = main.font if font is None else font
+    self.anchor = main.anchor if anchor is None else anchor
+    self.bg = main.bg if bg is None else bg
+    self.fg = main.fg if fg is None else fg 
+    self.op = main.op if op is None else op
+    self.ip = main.ip if ip is None else ip
     props = dict(bg=self.bg, border=0, relief='solid'); props.update(keys)
     pad = self.op if self.op == op or props['border'] else 0
-    tk.Frame.__init__(self, master, padx=pad, pady=pad, **props)
-    if isinstance(master, Frame): master.win.pack(self, grow)
+    tk.Frame.__init__(self, main, padx=pad, pady=pad, **props)
+    if isinstance(main, Frame): main.win.pack(self, grow)
     else: tk.Frame.pack(self, fill='both', expand=grow)
   # ---------------------------------------------------------------------------- 
   def __getitem__(self, index):
@@ -105,35 +105,35 @@ class Frame(tk.Frame):
 class Win(Frame):
   """..."""
   # ----------------------------------------------------------------------------
-  def __init__(self, master=None, title='', fold=None,
+  def __init__(self, main=None, title='', fold=None,
                key=None, click=None, move=None, inout=None, **keys):
     props = dict(grow=True, fold=fold, flow='ES' if fold else 'SE',
       border=0, relief='solid', anchor='C', op=0, ip=0, takefocus=True,
       bg='#F0F0F0', fg='#000000', font='Arial 12',
       key=None, click=None, inout=None, move=None); props.update(keys)
-    # create either a master window (Tk) or a slave window (Toplevel)
-    master = tk.Toplevel(master.master) if master else tk.Tk()
-    if master.master:
-      x, y = master.master.winfo_x(), master.master.winfo_y()
-      master.transient(master.master); master.geometry("+%s+%s" % (x+24,y+24))
-    master.win = self; Frame.__init__(self, master, **props)
-    master.title(title); master.resizable(props['grow'],props['grow'])
-    self.exit, master.index = master.destroy, None
+    # create either a main window (Tk) or a subordinate window (Toplevel)
+    main = tk.Toplevel(main.main) if main else tk.Tk()
+    if main.main:
+      x, y = main.main.winfo_x(), main.main.winfo_y()
+      main.transient(main.main); main.geometry("+%s+%s" % (x+24,y+24))
+    main.win = self; Frame.__init__(self, main, **props)
+    main.title(title); main.resizable(props['grow'],props['grow'])
+    self.exit, main.index = main.destroy, None
     if key:
-      master.bind('<Any-Key>', lambda e:self._key(e, key)) 
+      main.bind('<Any-Key>', lambda e:self._key(e, key)) 
     if click:
-      master.bind('<Any-Button>', lambda e:self._click(e, click))
+      main.bind('<Any-Button>', lambda e:self._click(e, click))
     if move:
-      master.bind('<Motion>', lambda e:move(e.widget,(e.x,e.y),self._mods(e.state)))
+      main.bind('<Motion>', lambda e:move(e.widget,(e.x,e.y),self._mods(e.state)))
     if inout:
-      master.bind('<Enter>', lambda e:inout(e.widget,1,self._mods(e.state)))
-      master.bind('<Leave>', lambda e:inout(e.widget,0,self._mods(e.state)))
+      main.bind('<Enter>', lambda e:inout(e.widget,1,self._mods(e.state)))
+      main.bind('<Leave>', lambda e:inout(e.widget,0,self._mods(e.state)))
   # ----------------------------------------------------------------------------
   @property
-  def title(self): return self.master.title()
+  def title(self): return self.main.title()
   # ----------------------------------------------------------------------------
   @title.setter
-  def title(self, title): self.master.title(title)
+  def title(self, title): self.main.title(title)
   # ----------------------------------------------------------------------------
   def _mods(self, state):
     """generate tuple of modifier keys for given event 'state'"""
@@ -152,17 +152,17 @@ class Win(Frame):
     click(event.widget, _buts[event.num], self._mods(event.state))
   # ---------------------------------------------------------------------------- 
   def loop(self):
-    self.update(); self.master.minsize(self.winfo_width(),self.winfo_height())
+    self.update(); self.main.minsize(self.winfo_width(),self.winfo_height())
     self.focus_force(); self.mainloop()
   # ---------------------------------------------------------------------------- 
   def wait(self):
-    self.update(); self.master.minsize(self.winfo_width(),self.winfo_height())
+    self.update(); self.main.minsize(self.winfo_width(),self.winfo_height())
     try: self.grab_set()
     except Exception: pass
     self.focus_force(); self.wait_window()
   # ----------------------------------------------------------------------------
   def pack(self, widget, grow, subwidget=None, fill='both'):
-    ms = widget.master; subwidget = widget if subwidget is None else subwidget
+    ms = widget.main; subwidget = widget if subwidget is None else subwidget
     if ms.fold and ms._index % ms.fold == 0: # create sub-frame at stack bottom
       ms.frame = tk.Frame(ms, bg=ms.bg); ms.frame.lower(); ms.widgets.append([])
       ms.frame.index = None
@@ -177,39 +177,39 @@ class Win(Frame):
 class Brick(tk.Frame, _Multi):
   """..."""
   # ----------------------------------------------------------------------------
-  def __init__(self, master, grow=True, state=0, **props):
-    tk.Frame.__init__(self, master)
-    _Multi.__init__(self, state, props, bg=master.bg, border=2,
+  def __init__(self, main, grow=True, state=0, **props):
+    tk.Frame.__init__(self, main)
+    _Multi.__init__(self, state, props, bg=main.bg, border=2,
       relief='solid', width=32, height=32, takefocus='0')
-    master.win.pack(self, grow)
+    main.win.pack(self, grow)
 # ==============================================================================
 class Label(tk.Label, _Multi):
   """..."""
   # ----------------------------------------------------------------------------
-  def __init__(self, master, grow=True, state=0, **props):
-    tk.Label.__init__(self, master)
-    _Multi.__init__(self, state, props, bg=master.bg, fg=master.fg, border=0,
-      relief='solid', anchor=master.anchor, font=master.font, takefocus='0')
-    master.win.pack(self, grow)
+  def __init__(self, main, grow=True, state=0, **props):
+    tk.Label.__init__(self, main)
+    _Multi.__init__(self, state, props, bg=main.bg, fg=main.fg, border=0,
+      relief='solid', anchor=main.anchor, font=main.font, takefocus='0')
+    main.win.pack(self, grow)
 # ==============================================================================
 class Button(tk.Button, _Multi):
   """..."""
   # ----------------------------------------------------------------------------
-  def __init__(self, master, grow=True, state=0, **props):
-    tk.Button.__init__(self, master)
-    _Multi.__init__(self, state, props, bg=master.bg, fg=master.fg, border=2,
-      relief='raised', anchor=master.anchor, font=master.font, takefocus='0')
-    master.win.pack(self, grow)
+  def __init__(self, main, grow=True, state=0, **props):
+    tk.Button.__init__(self, main)
+    _Multi.__init__(self, state, props, bg=main.bg, fg=main.fg, border=2,
+      relief='raised', anchor=main.anchor, font=main.font, takefocus='0')
+    main.win.pack(self, grow)
 # ==============================================================================
 class Checkbutton(tk.Checkbutton, _Multi):
   """..."""
   # ----------------------------------------------------------------------------
-  def __init__(self, master, grow=True, state=0, **props):
+  def __init__(self, main, grow=True, state=0, **props):
     self._var = IntVar(int(state))
-    _merge(props, bg=master.bg, fg=master.fg, anchor=master.anchor,
-      font=master.font, takefocus='0')
+    _merge(props, bg=main.bg, fg=main.fg, anchor=main.anchor,
+      font=main.font, takefocus='0')
     if 'anchor' in props: props['anchor'] = _anchor[props['anchor']]
-    tk.Checkbutton.__init__(self, master, **props); master.win.pack(self, grow)
+    tk.Checkbutton.__init__(self, main, **props); main.win.pack(self, grow)
   # ----------------------------------------------------------------------------
   @property
   def state(self):
@@ -229,31 +229,31 @@ class Checkbutton(tk.Checkbutton, _Multi):
 class Radiobutton(tk.Radiobutton):
   """..."""
   # ----------------------------------------------------------------------------
-  def __init__(self, master, grow=True, state=0, **props):
-    _merge(props, bg=master.bg, fg=master.fg, anchor=master.anchor,
-      font=master.font, takefocus='0')  
-    tk.Radiobutton.__init__(self, master, **props); master.win.pack(self, grow)
+  def __init__(self, main, grow=True, state=0, **props):
+    _merge(props, bg=main.bg, fg=main.fg, anchor=main.anchor,
+      font=main.font, takefocus='0')  
+    tk.Radiobutton.__init__(self, main, **props); main.win.pack(self, grow)
 # ==============================================================================
 class Spinbox(tk.Spinbox):
   """..."""
   # ----------------------------------------------------------------------------
-  def __init__(self, master, grow=True, **props):
-    _merge(props, bg=master.bg, fg=master.fg, anchor=master.anchor,
-           font=master.font)
-    tk.Spinbox.__init__(self, master, **props); master.win.pack(self, grow)
+  def __init__(self, main, grow=True, **props):
+    _merge(props, bg=main.bg, fg=main.fg, anchor=main.anchor,
+           font=main.font)
+    tk.Spinbox.__init__(self, main, **props); main.win.pack(self, grow)
 # ==============================================================================
 class Canvas(tk.Canvas):
   """..."""
   # ----------------------------------------------------------------------------
-  def __init__(self, master, grow=True, **props):
-#    _merge(props, bg=master.bg, fg=master.fg, border=0); props['border'] -= 2
-    _merge(props, bg=master.bg, border=0); props['border'] -= 2
-    tk.Canvas.__init__(self, master, **props); master.win.pack(self, grow)
+  def __init__(self, main, grow=True, **props):
+#    _merge(props, bg=main.bg, fg=main.fg, border=0); props['border'] -= 2
+    _merge(props, bg=main.bg, border=0); props['border'] -= 2
+    tk.Canvas.__init__(self, main, **props); main.win.pack(self, grow)
 # ==============================================================================
 class Scale(tk.Scale, _Multi):
   """..."""
   # ----------------------------------------------------------------------------
-  def __init__(self, master, grow=True, scale=None, state=None,
+  def __init__(self, main, grow=True, scale=None, state=None,
                flow='E', command=None, **props):
     start, stop, step = 0, 100, 1
     get = lambda seq, n, val: seq[n] if seq[n:n+1] else val
@@ -265,9 +265,9 @@ class Scale(tk.Scale, _Multi):
     props['orient'] = _orient[flow]
     if command: props['command'] = lambda n: command()
     self.command = command if command else (lambda: None)
-    tk.Scale.__init__(self, master, bg=master.bg, fg=master.fg, from_=start,
-      to=stop, resolution=step, takefocus='0', font=master.font, **props)
-    self.set(state); master.win.pack(self, grow)
+    tk.Scale.__init__(self, main, bg=main.bg, fg=main.fg, from_=start,
+      to=stop, resolution=step, takefocus='0', font=main.font, **props)
+    self.set(state); main.win.pack(self, grow)
   # ----------------------------------------------------------------------------
   @property
   def state(self):
@@ -288,13 +288,13 @@ class Scale(tk.Scale, _Multi):
 class Entry(tk.Entry):
   """..."""
   # ----------------------------------------------------------------------------
-  def __init__(self, master, grow=True, command=None, **props):
-    _merge(props, bg=master.bg, fg=master.fg, font=master.font,
+  def __init__(self, main, grow=True, command=None, **props):
+    _merge(props, bg=main.bg, fg=main.fg, font=main.font,
            takefocus='1', relief='sunken', border=2)
-    tk.Entry.__init__(self, master, **props)
+    tk.Entry.__init__(self, main, **props)
     if command: self.bind('<Return>', lambda event, *args: command(*args))
     self.command = command if command else lambda: None
-    master.win.pack(self, grow, fill='x')
+    main.win.pack(self, grow, fill='x')
   # ----------------------------------------------------------------------------
   @property
   def state(self):
@@ -315,11 +315,11 @@ class Entry(tk.Entry):
 class Listbox(tk.Listbox):
   """..."""
   # ----------------------------------------------------------------------------
-  def __init__(self, master, grow=True, scroll=True, **props):
-    _merge(props, bg=master.bg, fg=master.fg, font=master.font,
+  def __init__(self, main, grow=True, scroll=True, **props):
+    _merge(props, bg=main.bg, fg=main.fg, font=main.font,
            selectmode='extended', activestyle='none')
     if scroll:
-      self.frame = tk.Frame(master, bg=props['bg'])
+      self.frame = tk.Frame(main, bg=props['bg'])
       tk.Listbox.__init__(self, self.frame, **props)
       self.xscroll = tk.Scrollbar(self.frame, orient='horizontal',
         command=self.xview); self.xscroll.pack(side='bottom', fill='both')
@@ -328,9 +328,9 @@ class Listbox(tk.Listbox):
       self.config(xscrollcommand=self.xscroll.set)
       self.config(yscrollcommand=self.yscroll.set)
       self.pack(side='left', fill='both', expand=True)
-      master.win.pack(self.frame, grow, subwidget=self)
+      main.win.pack(self.frame, grow, subwidget=self)
     else:
-      tk.Listbox.__init__(self, master, **props); master.win.pack(self, grow)
+      tk.Listbox.__init__(self, main, **props); main.win.pack(self, grow)
     self.update(reset=True) # reset box content
   # ----------------------------------------------------------------------------
   @property
@@ -380,22 +380,22 @@ class Listbox(tk.Listbox):
 class Image(tk.PhotoImage):
   """..."""
   # ----------------------------------------------------------------------------
-  def __init__(self, master=None, file=None, **props):
-    tk.PhotoImage.__init__(self, master=master, file=file, **props)
+  def __init__(self, main=None, file=None, **props):
+    tk.PhotoImage.__init__(self, main=main, file=file, **props)
 # ==============================================================================
 class Command(Frame):
   """..."""
   # ----------------------------------------------------------------------------
-  def __init__(self, master, process=None, prompt=None, **props):
+  def __init__(self, main, process=None, prompt=None, **props):
     """"""
     if prompt is None: prompt = "Command" # default 'prompt' string
     if process is None: process = lambda s: s # default 'process' function
     self.prompt, self.process = prompt + ' : ', process
-    _merge(props, bg=master.bg, fg=master.fg, font=master.font,
+    _merge(props, bg=main.bg, fg=main.fg, font=main.font,
            width=80, height=20)
     self.width = props['width']; del props['width']
     self.height = props['height']; del props['height']
-    Frame.__init__(self, master, side='top', **props)
+    Frame.__init__(self, main, side='top', **props)
     self.frame = Frame(self, grow=False) # frame for Label, Entry and Button
     self.label = Label(self.frame, grow=False, text=self.prompt)
     self.entry = Entry(self.frame, command=self.enter)
